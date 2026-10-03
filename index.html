@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>A Saúde Mental no Ensino Superior: Desafios, Causas e Impactos</title>
+<title>Saúde mental e pressão psicológica no ensino superior</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Literata:ital,opsz,wght@0,7..72,400;0,7..72,600;1,7..72,400&display=swap" rel="stylesheet">
@@ -197,11 +197,13 @@
 
   .img-real {
     width: 100%;
-    height: 100%;
+    height: auto;
+    aspect-ratio: 4 / 3;
     object-fit: cover;
     border-radius: var(--radius);
     display: block;
   }
+  .img-real.larga { aspect-ratio: 16 / 6; }
 
   /* ---------- Painel das ações ---------- */
   .intro-acoes { max-width: 62ch; margin: 0 0 2rem; }
@@ -327,13 +329,50 @@
   @media (max-width: 860px) {
     .duas-colunas,
     .conclusao-topo { grid-template-columns: 1fr; }
-    .painel { grid-template-columns: 1fr; }
-    .abas { flex-direction: row; flex-wrap: wrap; }
-    .aba { font-size: 0.95rem; padding: 0.7rem 0.9rem; }
-    .hero::after { width: 220px; height: 220px; right: -70px; bottom: -80px; }
+    .painel { grid-template-columns: 1fr; margin-top: 1.75rem; }
+    .abas {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.5rem;
+    }
+    .aba {
+      font-size: 0.9rem;
+      line-height: 1.2;
+      padding: 0.8rem 0.75rem;
+      min-height: 64px;
+      display: flex;
+      align-items: center;
+    }
+    .hero::after { width: 200px; height: 200px; right: -80px; bottom: -90px; }
     .hero::before { display: none; }
     .topbar strong { display: none; }
+    .topbar nav { gap: 1rem; }
     .img-placeholder.larga { aspect-ratio: 4 / 3; }
+    .img-real.larga { aspect-ratio: 16 / 10; }
+  }
+
+  @media (max-width: 520px) {
+    body { font-size: 1.05rem; line-height: 1.7; }
+    .wrap { width: min(1080px, 100% - 2rem); }
+    .hero { padding: 2.5rem 0 3.5rem; }
+    .hero p.sub { margin-bottom: 1.75rem; }
+    .meta { grid-template-columns: repeat(2, 1fr); gap: 0.9rem 1rem; }
+    section.bloco { padding: 2.75rem 0; }
+    .duas-colunas, .conclusao-topo { gap: 1.75rem; }
+    .conclusao-topo { margin-bottom: 2.5rem; }
+    .destaque { font-size: 1.1rem; }
+    .img-placeholder { min-height: 220px; }
+    .conteudo { padding: 1.25rem; border-top-width: 6px; }
+    ol.pilares { grid-template-columns: 1fr; gap: 0.75rem; }
+    ol.pilares li {
+      display: grid;
+      grid-template-columns: 38px 1fr;
+      align-items: center;
+      gap: 0 0.9rem;
+      padding: 1rem;
+    }
+    ol.pilares li::before { margin-bottom: 0; }
+    footer .wrap { flex-direction: column; }
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -359,7 +398,7 @@
 <!-- ======== CAPA ======== -->
 <section class="hero">
   <div class="wrap">
-    <h1>A Saúde Mental no Ensino Superior: Desafios, Causas e Impactos</h1>
+    <h1>Saúde mental e pressão psicológica no ensino superior</h1>
     <p class="sub">Como a universidade pode cuidar de quem estuda nela.</p>
     <dl class="meta">
       <div><dt>Aluno(a)</dt><dd>Seu nome aqui</dd></div>
@@ -383,11 +422,7 @@
     </div>
 
     <!-- IMAGEM 1 -->
-    <div class="img-placeholder" role="img" aria-label="Espaço reservado para a imagem 1, da introdução">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="10" r="1.8"/><path d="M21 16l-5-5-8 9"/></svg>
-      <b>Imagem 1</b>
-      <span>Sugestão: estudante sobrecarregado, com livros e prazos ao redor</span>
-    </div>
+    <img src="imagens/1.png" alt="Ilustração sobre a pressão psicológica na vida do estudante universitário" class="img-real" loading="eager">
   </div>
 </section>
 
@@ -398,11 +433,7 @@
     <p class="intro-acoes">Os estudos revisados indicam que é preciso agir em várias frentes dentro do ambiente acadêmico. Escolha uma delas para ver o que cada uma envolve.</p>
 
     <!-- IMAGEM 2 -->
-    <div class="img-placeholder larga" role="img" aria-label="Espaço reservado para a imagem 2, das ações">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="10" r="1.8"/><path d="M21 16l-5-5-8 9"/></svg>
-      <b>Imagem 2</b>
-      <span>Sugestão: grupo de estudantes conversando ou atendimento em um espaço de acolhimento</span>
-    </div>
+    <img src="imagens/2.png" alt="Ilustração sobre ações de acolhimento e apoio aos estudantes" class="img-real larga" loading="lazy">
 
     <div class="painel">
       <div class="abas" role="tablist" aria-label="Ações para cuidar da saúde mental" aria-orientation="vertical">
@@ -465,11 +496,7 @@
       </div>
 
       <!-- IMAGEM 3 -->
-      <div class="img-placeholder" role="img" aria-label="Espaço reservado para a imagem 3, da conclusão">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="10" r="1.8"/><path d="M21 16l-5-5-8 9"/></svg>
-        <b>Imagem 3</b>
-        <span>Sugestão: campus acolhedor, estudantes juntos ao ar livre</span>
-      </div>
+      <img src="imagens/3.png" alt="Ilustração sobre a universidade como ambiente de cuidado com a saúde mental" class="img-real" loading="lazy">
     </div>
 
     <h3 class="pilares-titulo">A universidade pode contribuir diretamente por meio de:</h3>
