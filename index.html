@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Saúde mental e pressão psicológica no ensino superior</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Literata:ital,opsz,wght@0,7..72,400;0,7..72,600;1,7..72,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #1f2147;
+    --ink-soft: #4a4d7a;
+    --paper: #f7f8ff;
+    --periwinkle: #d9e0ff;
+    --mint: #cdefe3;
+    --sun: #ffcf5c;
+    --line: #c3cbf0;
+    --radius: 18px;
+    --display: "Bricolage Grotesque", "Trebuchet MS", system-ui, sans-serif;
+    --body: "Literata", Georgia, "Times New Roman", serif;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; scroll-padding-top: 72px; }
+
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--body);
+    font-size: 1.125rem;
+    line-height: 1.75;
+  }
+
+  a { color: inherit; }
+
+  :focus-visible {
+    outline: 3px solid var(--ink);
+    outline-offset: 3px;
+  }
+
+  .wrap {
+    width: min(1080px, 100% - 2.5rem);
+    margin-inline: auto;
+  }
+
+  /* ---------- Navegação ---------- */
+  .topbar {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background: var(--ink);
+    color: var(--paper);
+  }
+  .topbar .wrap {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    min-height: 56px;
+  }
+  .topbar strong {
+    font-family: var(--display);
+    font-weight: 700;
+    font-size: 1rem;
+    white-space: nowrap;
+  }
+  .topbar nav { display: flex; gap: 1.25rem; overflow-x: auto; }
+  .topbar nav a {
+    font-family: var(--display);
+    font-weight: 500;
+    font-size: 0.95rem;
+    text-decoration: none;
+    padding: 0.25rem 0;
+    border-bottom: 2px solid transparent;
+    white-space: nowrap;
+  }
+  .topbar nav a:hover { border-bottom-color: var(--sun); }
+  .topbar :focus-visible { outline-color: var(--sun); }
+
+  /* ---------- Capa ---------- */
+  .hero {
+    background: var(--ink);
+    color: var(--paper);
+    padding: clamp(3rem, 8vw, 6.5rem) 0 clamp(3.5rem, 8vw, 6rem);
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::after {
+    content: "";
+    position: absolute;
+    right: -90px;
+    bottom: -110px;
+    width: 340px;
+    height: 340px;
+    border-radius: 50%;
+    background: var(--sun);
+    opacity: 0.95;
+  }
+  .hero::before {
+    content: "";
+    position: absolute;
+    right: 150px;
+    bottom: 60px;
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    background: var(--mint);
+  }
+  .hero .wrap { position: relative; z-index: 1; }
+  .hero h1 {
+    font-family: var(--display);
+    font-weight: 800;
+    font-size: clamp(2.4rem, 7vw, 5rem);
+    line-height: 1.02;
+    letter-spacing: -0.02em;
+    margin: 0 0 1.5rem;
+    max-width: 14ch;
+  }
+  .hero p.sub {
+    font-size: clamp(1.1rem, 2.2vw, 1.35rem);
+    max-width: 38ch;
+    margin: 0 0 2.5rem;
+    color: var(--periwinkle);
+  }
+  .meta {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(170px, max-content));
+    gap: 0.75rem 2.5rem;
+    margin: 0;
+    font-family: var(--display);
+    font-size: 0.95rem;
+  }
+  .meta dt { color: var(--periwinkle); font-weight: 500; }
+  .meta dd { margin: 0; font-weight: 700; }
+
+  /* ---------- Seções ---------- */
+  section.bloco { padding: clamp(3.5rem, 8vw, 6rem) 0; }
+  section.bloco.claro { background: var(--paper); }
+  section.bloco.azul { background: var(--periwinkle); }
+  section.bloco.menta { background: var(--mint); }
+
+  h2 {
+    font-family: var(--display);
+    font-weight: 800;
+    font-size: clamp(1.9rem, 4.5vw, 3rem);
+    line-height: 1.1;
+    letter-spacing: -0.015em;
+    margin: 0 0 1.25rem;
+  }
+
+  .duas-colunas {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: clamp(2rem, 5vw, 4rem);
+    align-items: center;
+  }
+  .duas-colunas p { margin: 0 0 1.25rem; max-width: 60ch; }
+  .duas-colunas p:last-child { margin-bottom: 0; }
+
+  .destaque {
+    border-left: 6px solid var(--sun);
+    padding: 0.25rem 0 0.25rem 1.25rem;
+    font-weight: 600;
+    font-size: 1.2rem;
+  }
+
+  /* ---------- Placeholder de imagem ---------- */
+  /* Para trocar: substitua a <div class="img-placeholder"> inteira por
+     <img src="sua-imagem.jpg" alt="descrição" class="img-real"> */
+  .img-placeholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    text-align: center;
+    padding: 1.5rem;
+    min-height: 280px;
+    aspect-ratio: 4 / 3;
+    border: 2px dashed var(--ink-soft);
+    border-radius: var(--radius);
+    background:
+      repeating-linear-gradient(135deg,
+        rgba(31,33,71,0.05) 0 14px,
+        transparent 14px 28px),
+      rgba(255,255,255,0.55);
+    color: var(--ink-soft);
+    font-family: var(--display);
+  }
+  .img-placeholder svg { width: 44px; height: 44px; }
+  .img-placeholder b { color: var(--ink); font-size: 1.05rem; }
+  .img-placeholder span { font-size: 0.9rem; max-width: 30ch; line-height: 1.4; }
+  .img-placeholder.larga { aspect-ratio: 16 / 6; min-height: 220px; }
+
+  .img-real {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: var(--radius);
+    display: block;
+  }
+
+  /* ---------- Painel das ações ---------- */
+  .intro-acoes { max-width: 62ch; margin: 0 0 2rem; }
+
+  .painel {
+    display: grid;
+    grid-template-columns: 320px 1fr;
+    gap: 1.5rem;
+    margin-top: 2.5rem;
+    align-items: start;
+  }
+  .abas { display: flex; flex-direction: column; gap: 0.5rem; }
+  .aba {
+    text-align: left;
+    font-family: var(--display);
+    font-weight: 700;
+    font-size: 1.05rem;
+    line-height: 1.25;
+    padding: 0.95rem 1.1rem;
+    background: rgba(255,255,255,0.6);
+    color: var(--ink);
+    border: 2px solid transparent;
+    border-radius: 14px;
+    cursor: pointer;
+    transition: background 0.15s, border-color 0.15s;
+  }
+  .aba:hover { background: #fff; }
+  .aba[aria-selected="true"] {
+    background: var(--ink);
+    color: var(--paper);
+  }
+  .aba[aria-selected="true"]:focus-visible { outline-color: var(--ink); }
+
+  .conteudo {
+    background: #fff;
+    border-radius: var(--radius);
+    padding: clamp(1.5rem, 4vw, 2.5rem);
+    min-height: 100%;
+    border-top: 8px solid var(--sun);
+  }
+  .conteudo h3 {
+    font-family: var(--display);
+    font-weight: 800;
+    font-size: clamp(1.4rem, 3vw, 1.9rem);
+    line-height: 1.15;
+    margin: 0 0 1rem;
+  }
+  .conteudo p { margin: 0 0 1rem; max-width: 56ch; }
+  .conteudo p:last-child { margin-bottom: 0; }
+  .conteudo[hidden] { display: none; }
+  .conteudo .nota {
+    font-size: 0.98rem;
+    color: var(--ink-soft);
+    font-style: italic;
+  }
+  .conteudo.mudou { animation: troca 0.25s ease-out; }
+  @keyframes troca {
+    from { opacity: 0.4; transform: translateY(6px); }
+    to   { opacity: 1; transform: none; }
+  }
+
+  /* ---------- Conclusão ---------- */
+  .conclusao-topo {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: clamp(2rem, 5vw, 4rem);
+    align-items: center;
+    margin-bottom: 3.5rem;
+  }
+  .conclusao-topo p { margin: 0 0 1.25rem; max-width: 60ch; }
+  .conclusao-topo p:last-child { margin-bottom: 0; }
+
+  .pilares-titulo {
+    font-family: var(--display);
+    font-weight: 700;
+    font-size: 1.3rem;
+    margin: 0 0 1.25rem;
+  }
+  ol.pilares {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+    gap: 1rem;
+    counter-reset: pilar;
+  }
+  ol.pilares li {
+    counter-increment: pilar;
+    background: #fff;
+    border-radius: var(--radius);
+    padding: 1.25rem 1.25rem 1.5rem;
+    font-family: var(--display);
+    font-weight: 600;
+    font-size: 1.05rem;
+    line-height: 1.35;
+  }
+  ol.pilares li::before {
+    content: counter(pilar);
+    display: grid;
+    place-items: center;
+    width: 38px;
+    height: 38px;
+    margin-bottom: 0.9rem;
+    border-radius: 50%;
+    background: var(--ink);
+    color: var(--paper);
+    font-weight: 800;
+  }
+  ol.pilares li:nth-child(even)::before { background: var(--sun); color: var(--ink); }
+
+  /* ---------- Rodapé ---------- */
+  footer {
+    background: var(--ink);
+    color: var(--periwinkle);
+    padding: 2rem 0;
+    font-family: var(--display);
+    font-size: 0.95rem;
+  }
+  footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 0.75rem; }
+
+  /* ---------- Responsivo ---------- */
+  @media (max-width: 860px) {
+    .duas-colunas,
+    .conclusao-topo { grid-template-columns: 1fr; }
+    .painel { grid-template-columns: 1fr; }
+    .abas { flex-direction: row; flex-wrap: wrap; }
+    .aba { font-size: 0.95rem; padding: 0.7rem 0.9rem; }
+    .hero::after { width: 220px; height: 220px; right: -70px; bottom: -80px; }
+    .hero::before { display: none; }
+    .topbar strong { display: none; }
+    .img-placeholder.larga { aspect-ratio: 4 / 3; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .conteudo.mudou { animation: none; }
+    .aba { transition: none; }
+  }
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="wrap">
+    <strong>Saúde mental no ensino superior</strong>
+    <nav aria-label="Seções do trabalho">
+      <a href="#introducao">Introdução</a>
+      <a href="#acoes">O que pode ser feito</a>
+      <a href="#conclusao">Conclusão</a>
+    </nav>
+  </div>
+</header>
+
+<!-- ======== CAPA ======== -->
+<section class="hero">
+  <div class="wrap">
+    <h1>Saúde mental e pressão psicológica no ensino superior</h1>
+    <p class="sub">Como a universidade pode cuidar de quem estuda nela.</p>
+    <dl class="meta">
+      <div><dt>Aluno(a)</dt><dd>Seu nome aqui</dd></div>
+      <div><dt>Disciplina</dt><dd>Nome da disciplina</dd></div>
+      <div><dt>Professor(a)</dt><dd>Nome do professor</dd></div>
+      <div><dt>Data</dt><dd>00/00/0000</dd></div>
+    </dl>
+  </div>
+</section>
+
+<main>
+
+<!-- ======== 1. INTRODUÇÃO ======== -->
+<section class="bloco claro" id="introducao">
+  <div class="wrap duas-colunas">
+    <div>
+      <h2>Introdução</h2>
+      <p>Entrar e se manter na universidade mexe muito com a vida do estudante. A graduação é, em princípio, um momento de crescimento acadêmico e profissional, mas o dia a dia costuma vir acompanhado de cobranças pesadas, excesso de tarefas, prazos apertados e muita insegurança sobre o futuro no mercado de trabalho.</p>
+      <p>Esse conjunto de fatores pode levar a quadros graves de estresse, ansiedade, depressão e esgotamento mental (burnout).</p>
+      <p class="destaque">Cuidar da saúde mental de quem está na universidade não é só problema de cada aluno. É uma tarefa coletiva e, principalmente, da própria instituição.</p>
+    </div>
+
+    <!-- IMAGEM 1 -->
+    <div class="img-placeholder" role="img" aria-label="Espaço reservado para a imagem 1, da introdução">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="10" r="1.8"/><path d="M21 16l-5-5-8 9"/></svg>
+      <b>Imagem 1</b>
+      <span>Sugestão: estudante sobrecarregado, com livros e prazos ao redor</span>
+    </div>
+  </div>
+</section>
+
+<!-- ======== 2. O QUE PODE SER FEITO ======== -->
+<section class="bloco azul" id="acoes">
+  <div class="wrap">
+    <h2>O que pode ser feito</h2>
+    <p class="intro-acoes">Os estudos revisados indicam que é preciso agir em várias frentes dentro do ambiente acadêmico. Escolha uma delas para ver o que cada uma envolve.</p>
+
+    <!-- IMAGEM 2 -->
+    <div class="img-placeholder larga" role="img" aria-label="Espaço reservado para a imagem 2, das ações">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="10" r="1.8"/><path d="M21 16l-5-5-8 9"/></svg>
+      <b>Imagem 2</b>
+      <span>Sugestão: grupo de estudantes conversando ou atendimento em um espaço de acolhimento</span>
+    </div>
+
+    <div class="painel">
+      <div class="abas" role="tablist" aria-label="Ações para cuidar da saúde mental" aria-orientation="vertical">
+        <button class="aba" role="tab" id="aba-1" aria-controls="painel-1" aria-selected="true">Prevenção e identificação precoce</button>
+        <button class="aba" role="tab" id="aba-2" aria-controls="painel-2" aria-selected="false" tabindex="-1">Acolhimento e escuta</button>
+        <button class="aba" role="tab" id="aba-3" aria-controls="painel-3" aria-selected="false" tabindex="-1">Políticas institucionais</button>
+        <button class="aba" role="tab" id="aba-4" aria-controls="painel-4" aria-selected="false" tabindex="-1">Redução do estigma</button>
+        <button class="aba" role="tab" id="aba-5" aria-controls="painel-5" aria-selected="false" tabindex="-1">Promoção do bem-estar</button>
+        <button class="aba" role="tab" id="aba-6" aria-controls="painel-6" aria-selected="false" tabindex="-1">Monitoramento e pesquisa</button>
+      </div>
+
+      <div>
+        <article class="conteudo" role="tabpanel" id="painel-1" aria-labelledby="aba-1">
+          <h3>Prevenção e identificação precoce</h3>
+          <p>É importante perceber os sinais de sofrimento psíquico antes que se transformem em crises.</p>
+          <p class="nota">Cabe às instituições criar formas ativas de mapear os estudantes em situação de risco ou vulnerabilidade, em vez de esperar que eles apareçam pedindo ajuda.</p>
+        </article>
+
+        <article class="conteudo" role="tabpanel" id="painel-2" aria-labelledby="aba-2" hidden>
+          <h3>Acolhimento e escuta</h3>
+          <p>Os espaços de apoio psicológico na universidade precisam ser ampliados e fortalecidos.</p>
+          <p class="nota">A ideia é que o estudante encontre um ambiente seguro e humano, onde se sinta à vontade para procurar ajuda quando precisar.</p>
+        </article>
+
+        <article class="conteudo" role="tabpanel" id="painel-3" aria-labelledby="aba-3" hidden>
+          <h3>Políticas institucionais</h3>
+          <p>As ações de saúde mental devem estar ligadas às políticas gerais da universidade e à assistência estudantil.</p>
+          <p class="nota">Elas precisam fazer parte do planejamento estratégico e não ser iniciativas isoladas.</p>
+        </article>
+
+        <article class="conteudo" role="tabpanel" id="painel-4" aria-labelledby="aba-4" hidden>
+          <h3>Redução do estigma</h3>
+          <p>Campanhas contínuas de informação ajudam a derrubar preconceitos sobre o cuidado psicológico.</p>
+          <p class="nota">Com menos preconceito, fica mais fácil o estudante buscar apoio por conta própria.</p>
+        </article>
+
+        <article class="conteudo" role="tabpanel" id="painel-5" aria-labelledby="aba-5" hidden>
+          <h3>Promoção do bem-estar</h3>
+          <p>Vale investir em intervenções com respaldo científico. Práticas como mindfulness (atenção plena) e abordagens da Terapia Cognitivo-Comportamental (TCC) mostraram bons resultados na diminuição da ansiedade e no manejo do estresse acadêmico.</p>
+        </article>
+
+        <article class="conteudo" role="tabpanel" id="painel-6" aria-labelledby="aba-6" hidden>
+          <h3>Monitoramento e pesquisa</h3>
+          <p>É necessário acompanhar de forma regular o que a comunidade estudantil precisa.</p>
+          <p class="nota">Também é preciso ampliar as pesquisas sobre a efetividade das ações já implementadas.</p>
+        </article>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======== 3. CONCLUSÃO ======== -->
+<section class="bloco menta" id="conclusao">
+  <div class="wrap">
+    <div class="conclusao-topo">
+      <div>
+        <h2>Conclusão</h2>
+        <p>A literatura analisada mostra que a saúde mental na universidade depende de fatores individuais, interpessoais e institucionais ao mesmo tempo.</p>
+        <p>Sendo assim, o suporte ao estudante não pode ficar apenas por conta das suas próprias forças ou recursos. A universidade tem um papel ativo e fundamental na preservação da saúde de seus alunos.</p>
+      </div>
+
+      <!-- IMAGEM 3 -->
+      <div class="img-placeholder" role="img" aria-label="Espaço reservado para a imagem 3, da conclusão">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="10" r="1.8"/><path d="M21 16l-5-5-8 9"/></svg>
+        <b>Imagem 3</b>
+        <span>Sugestão: campus acolhedor, estudantes juntos ao ar livre</span>
+      </div>
+    </div>
+
+    <h3 class="pilares-titulo">A universidade pode contribuir diretamente por meio de:</h3>
+    <ol class="pilares">
+      <li>Ações de prevenção</li>
+      <li>Ambientes de acolhimento e escuta qualificada</li>
+      <li>Reconhecimento precoce dos sinais de sofrimento</li>
+      <li>Combate ao estigma social</li>
+      <li>Fortalecimento da assistência estudantil, com oferta contínua de estratégias de cuidado</li>
+    </ol>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>Trabalho acadêmico: Saúde mental e pressão psicológica no ensino superior</span>
+    <span>Nome da instituição</span>
+  </div>
+</footer>
+
+<script>
+  (function () {
+    var abas = Array.prototype.slice.call(document.querySelectorAll('.aba'));
+    var paineis = abas.map(function (a) { return document.getElementById(a.getAttribute('aria-controls')); });
+
+    function selecionar(indice, focar) {
+      abas.forEach(function (aba, i) {
+        var ativa = i === indice;
+        aba.setAttribute('aria-selected', ativa ? 'true' : 'false');
+        aba.tabIndex = ativa ? 0 : -1;
+        paineis[i].hidden = !ativa;
+        paineis[i].classList.remove('mudou');
+      });
+      void paineis[indice].offsetWidth;
+      paineis[indice].classList.add('mudou');
+      if (focar) abas[indice].focus();
+    }
+
+    abas.forEach(function (aba, i) {
+      aba.addEventListener('click', function () { selecionar(i, false); });
+      aba.addEventListener('keydown', function (e) {
+        var prox = null;
+        if (e.key === 'ArrowDown' || e.key === 'ArrowRight') prox = (i + 1) % abas.length;
+        if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') prox = (i - 1 + abas.length) % abas.length;
+        if (e.key === 'Home') prox = 0;
+        if (e.key === 'End') prox = abas.length - 1;
+        if (prox !== null) { e.preventDefault(); selecionar(prox, true); }
+      });
+    });
+  })();
+</script>
+
+</body>
+</html>
